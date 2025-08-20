@@ -15,7 +15,7 @@ with DAG(
     dag_id="example_git_dag",
     default_args=default_args,
     description="Simple DAG from GitSync",
-    schedule_interval="@daily",
+    schedule="@daily",
     start_date=datetime(2025, 1, 1),
     catchup=False,
     tags=["example"],
