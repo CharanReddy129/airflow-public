@@ -194,7 +194,6 @@ dags:
     repo: "https://github.com/CharanReddy129/airflow-public.git"
     branch: "main"
     subPath: "airflow-dags"
-    rev: "main"
     wait: 60
     depth: 1
 
