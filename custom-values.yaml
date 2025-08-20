@@ -185,6 +185,19 @@ config:
   api: 
     enable_experimental_api: 'False'
 
+dags:
+  persistence:
+    enabled: false
+  
+  gitSync:
+    enabled: true
+    repo: "https://github.com/CharanReddy129/airflow-public.git"
+    branch: "main"
+    subPath: "airflow-dags"
+    rev: "main"
+    wait: 60
+    depth: 1
+
 # airflow:
 #   extraPipPackages:
 #     - pyyaml
