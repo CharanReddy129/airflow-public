@@ -188,14 +188,34 @@ config:
 dags:
   persistence:
     enabled: false
-  
+
+  # for public repo
+
+  # gitSync:
+  #   enabled: true
+  #   repo: "https://github.com/CharanReddy129/airflow-public.git"
+  #   branch: "main"
+  #   subPath: "airflow-dag"
+  #   wait: 60
+  #   depth: 1
+
+  # for private repo
   gitSync:
     enabled: true
-    repo: "https://github.com/CharanReddy129/airflow-public.git"
+    repo: "https://github.com/CharanReddy129/airflow-private.git"
     branch: "main"
     subPath: "airflow-dag"
     wait: 60
     depth: 1
+    credentialsSecret: "airflow-gitsync-secret"
+ 
+  # For creating the gitsync secret 
+
+  # kubectl create secret generic airflow-gitsync-secret \
+  #   --from-literal=GITSYNC_USERNAME="<your-github-username>" \
+  #   --from-literal=GITSYNC_PASSWORD="<your-github-pat>" \
+  #   -n airflow
+
 
 # airflow:
 #   extraPipPackages:
