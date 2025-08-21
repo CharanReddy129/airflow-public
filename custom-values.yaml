@@ -109,6 +109,24 @@ triggerer:
   logGroomerSidecar:
     enabled: false
 
+  startupProbe:
+    initialDelaySeconds: 30
+    timeoutSeconds: 30
+    failureThreshold: 10
+    periodSeconds: 10
+  
+  livenessProbe:
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
+    failureThreshold: 5
+    periodSeconds: 30
+  
+  readinessProbe:
+    initialDelaySeconds: 30
+    timeoutSeconds: 10
+    failureThreshold: 5
+    periodSeconds: 10
+
 redis:
   enabled: true
   resources:
@@ -152,13 +170,13 @@ cleanup:
 
 config:
   core:
-    # Reduce parallelism for lower resource usage
-    parallelism: 8         # Further reduced
-    max_active_tasks_per_dag: 4  # Further reduced
+    
+    parallelism: 8         
+    max_active_tasks_per_dag: 4  
     max_active_runs_per_dag: 1
-    # Disable example DAGs
+  
     load_examples: 'False'
-    # Reduce startup time
+    
     check_slas: 'False'
     store_dag_code: 'True'
     store_serialized_dags: 'True'
@@ -167,11 +185,11 @@ config:
     worker_concurrency: 2
   
   scheduler:
-    # Reduce scheduler intervals to save CPU
+    
     scheduler_heartbeat_sec: 10
     min_file_process_interval: 30
     dag_dir_list_interval: 300
-    # Reduce parsing processes for faster startup
+    
     parsing_processes: 1
     max_dagruns_to_create_per_loop: 5
     max_dagruns_per_loop_to_schedule: 10
