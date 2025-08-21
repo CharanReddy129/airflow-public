@@ -109,23 +109,12 @@ triggerer:
   logGroomerSidecar:
     enabled: false
 
-  startupProbe:
-    initialDelaySeconds: 30
-    timeoutSeconds: 30
-    failureThreshold: 10
-    periodSeconds: 10
-  
   livenessProbe:
     initialDelaySeconds: 60
-    timeoutSeconds: 10
+    timeoutSeconds: 60
     failureThreshold: 5
     periodSeconds: 30
   
-  readinessProbe:
-    initialDelaySeconds: 30
-    timeoutSeconds: 10
-    failureThreshold: 5
-    periodSeconds: 10
 
 redis:
   enabled: true
