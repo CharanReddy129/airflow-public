@@ -164,7 +164,7 @@ cleanup:
 
 config:
   core:
-    
+    executor: CeleryExecutor
     parallelism: 8         
     max_active_tasks_per_dag: 4  
     max_active_runs_per_dag: 1
