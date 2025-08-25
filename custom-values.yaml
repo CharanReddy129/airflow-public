@@ -20,16 +20,21 @@ scheduler:
   replicas: 1
   resources:
     requests:
-      cpu: 200m
-      memory: 256Mi
+      cpu: 300m
+      memory: 512Mi
     limits:
-      cpu: 500m
+      cpu: 700m
       memory: 1Gi
   
   startupProbe:
-    timeoutSeconds: 60
-    periodSeconds: 10
+    timeoutSeconds: 90
+    periodSeconds: 20
     failureThreshold: 12
+
+  livenessProbe:
+    timeoutSeconds: 60
+    periodSeconds: 30
+    failureThreshold: 10
   
   logGroomerSidecar:
     enabled: false
@@ -95,10 +100,10 @@ triggerer:
   replicas: 1
   resources:
     requests:
-      cpu: 100m
+      cpu: 200m
       memory: 256Mi
     limits:
-      cpu: 300m
+      cpu: 500m
       memory: 512Mi 
   
   persistence:
@@ -110,7 +115,7 @@ triggerer:
     enabled: false
 
   livenessProbe:
-    initialDelaySeconds: 60
+    initialDelaySeconds: 90
     timeoutSeconds: 60
     failureThreshold: 5
     periodSeconds: 30
@@ -120,11 +125,11 @@ redis:
   enabled: true
   resources:
     requests:
-      cpu: 50m
-      memory: 64Mi
-    limits:
       cpu: 100m
       memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
   persistence:
     enabled: true
     storageClassName: "standard"
@@ -139,10 +144,10 @@ postgresql:
       size: 2Gi
     resources:
       requests:
-        cpu: 100m
+        cpu: 200m
         memory: 256Mi
       limits:
-        cpu: 250m
+        cpu: 400m
         memory: 512Mi
 
 flower:
@@ -198,23 +203,26 @@ dags:
 
   # for public repo
 
-  # gitSync:
-  #   enabled: true
-  #   repo: "https://github.com/CharanReddy129/airflow-public.git"
-  #   branch: "main"
-  #   subPath: "airflow-dag"
-  #   wait: 60
-  #   depth: 1
-
-  # for private repo
   gitSync:
     enabled: true
-    repo: "https://github.com/CharanReddy129/airflow-private.git"
+    repo: "https://github.com/CharanReddy129/airflow-public.git"
     branch: "main"
     subPath: "airflow-dag"
     wait: 60
     depth: 1
-    credentialsSecret: "airflow-gitsync-secret"
+
+  # for private repo
+  # gitSync:
+  #   enabled: true
+  #   repo: "https://<PAT>@github.com/CharanReddy129/airflow-private.git"
+  #   branch: "main"
+  #   subPath: "airflow-dag"
+  #   wait: 60
+  #   depth: 1
+    # sshKeySecret: "airflow-gitsync-ssh"
+    # KnownHosts: true
+    # sshKnownHostsConfigMapName: git-known-hosts
+    # credentialsSecret: "airflow-gitsync-secret"
  
   # For creating the gitsync secret 
 
@@ -223,9 +231,26 @@ dags:
   #   --from-literal=GITSYNC_PASSWORD="<your-github-pat>" \
   #   -n airflow
 
+  # with ssh key secret
+  # kubectl create secret generic airflow-gitsync-ssh --from-file=ssh=<absolute-path-to-private-key> -n airflow
+
+  # adding configMap for known hosts
+  # kubectl create configmap git-known-hosts --from-file=known_hosts=<absolute-path-to-known-hosts-file> -n airflow
+
+
+images:
+  airflow:
+    repository: charanreddy12/airflow
+    tag: latest
+    pullPolicy: IfNotPresent
 
 # airflow:
-#   extraPipPackages:
-#     - pyyaml
-#     - requests
-#     - boto3
+#   image:
+#     repository: charanreddy12/airflow
+#     tag: latest
+#     pullPolicy: IfNotPresent
+  # extraPipPackages:
+  #   - "torch==2.8.0"
+  #   - "pymongo==4.14.1"
+  #   - "schedule==1.2.2"
+  #   - "python-terraform==0.10.1"
