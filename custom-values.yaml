@@ -1,3 +1,4 @@
+executor: "CeleryExecutor"
 workers:
   replicas: 1
   resources:
@@ -164,7 +165,7 @@ cleanup:
 
 config:
   core:
-    executor: CeleryExecutor
+    # executor: CeleryExecutor
     parallelism: 8         
     max_active_tasks_per_dag: 4  
     max_active_runs_per_dag: 1
@@ -195,6 +196,7 @@ config:
     update_fab_perms: 'False'
 
   api: 
+    # enable: "False"
     enable_experimental_api: 'False'
 
 dags:
@@ -240,15 +242,11 @@ dags:
 
 images:
   airflow:
-    repository: charanreddy12/airflow
-    tag: latest
+    repository: charanreddy12/custom-airflow
+    tag: v1
     pullPolicy: IfNotPresent
 
 # airflow:
-#   image:
-#     repository: charanreddy12/airflow
-#     tag: latest
-#     pullPolicy: IfNotPresent
   # extraPipPackages:
   #   - "torch==2.8.0"
   #   - "pymongo==4.14.1"
