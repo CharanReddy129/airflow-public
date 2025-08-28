@@ -205,26 +205,26 @@ dags:
 
   # for public repo
 
-  gitSync:
-    enabled: true
-    repo: "https://github.com/CharanReddy129/airflow-public.git"
-    branch: "main"
-    subPath: "airflow-dag"
-    wait: 60
-    depth: 1
-
-  # for private repo
   # gitSync:
   #   enabled: true
-  #   repo: "https://<PAT>@github.com/CharanReddy129/airflow-private.git"
+  #   repo: "https://github.com/CharanReddy129/airflow-public.git"
   #   branch: "main"
   #   subPath: "airflow-dag"
   #   wait: 60
   #   depth: 1
+
+  # for private repo
+  gitSync:
+    enabled: true
+    repo: "https://github.com/CharanReddy129/airflow-private.git"
+    branch: "main"
+    subPath: "airflow-dag"
+    wait: 60
+    depth: 1
+    credentialsSecret: "airflow-gitsync-secret"
     # sshKeySecret: "airflow-gitsync-ssh"
     # KnownHosts: true
     # sshKnownHostsConfigMapName: git-known-hosts
-    # credentialsSecret: "airflow-gitsync-secret"
  
   # For creating the gitsync secret 
 
