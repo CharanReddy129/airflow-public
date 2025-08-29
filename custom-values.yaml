@@ -196,7 +196,6 @@ config:
     update_fab_perms: 'False'
 
   api: 
-    # enable: "False"
     enable_experimental_api: 'False'
 
 dags:
@@ -222,37 +221,9 @@ dags:
     wait: 60
     depth: 1
     credentialsSecret: "airflow-gitsync-secret"
-    # sshKeySecret: "airflow-gitsync-ssh"
-    # knownHosts: false
-
-# extraSecrets:
-#   airflow-gitsync-ssh:
-#     data: |
-#     gitSshKey: '<base64-encoded-private-key>' 
-
-  # For creating the gitsync secret 
-
-  # kubectl create secret generic airflow-gitsync-secret \
-  #   --from-literal=GITSYNC_USERNAME="<your-github-username>" \
-  #   --from-literal=GITSYNC_PASSWORD="<your-github-pat>" \
-  #   -n airflow
-
-  # with ssh key secret
-  # kubectl create secret generic airflow-gitsync-ssh --from-file=ssh=<absolute-path-to-private-key> -n airflow
-
-  # adding configMap for known hosts
-  # kubectl create configmap git-known-hosts --from-file=known_hosts=<absolute-path-to-known-hosts-file> -n airflow
-
-
+    
 images:
   airflow:
     repository: charanreddy12/custom-airflow
     tag: v1
     pullPolicy: IfNotPresent
-
-# airflow:
-  # extraPipPackages:
-  #   - "torch==2.8.0"
-  #   - "pymongo==4.14.1"
-  #   - "schedule==1.2.2"
-  #   - "python-terraform==0.10.1"
