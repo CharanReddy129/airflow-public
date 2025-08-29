@@ -217,14 +217,13 @@ dags:
   gitSync:
     enabled: true
     repo: "git@github.com:CharanReddy129/airflow-private.git"
-    repo: "git@github.com:CharanReddy129/airflow-private.git"
     branch: "main"
     subPath: "airflow-dag"
     wait: 60
     depth: 1
-    sshKeySecret: "airflow-gitsync-ssh"
-    # credentialsSecret: "airflow-gitsync-secret"
-    KnownHosts: false
+    credentialsSecret: "airflow-gitsync-secret"
+    # sshKeySecret: "airflow-gitsync-ssh"
+    # knownHosts: false
 
 # extraSecrets:
 #   airflow-gitsync-ssh:
