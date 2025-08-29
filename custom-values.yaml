@@ -224,13 +224,12 @@ dags:
     depth: 1
     sshKeySecret: "airflow-gitsync-ssh"
     # credentialsSecret: "airflow-gitsync-secret"
-    # KnownHosts: true
-    # sshKnownHostsConfigMapName: git-known-hosts
+    KnownHosts: false
 
-extraSecrets:
-  airflow-gitsync-ssh:
-    data: |
-    gitSshKey: '<base64-encoded-private-key>' 
+# extraSecrets:
+#   airflow-gitsync-ssh:
+#     data: |
+#     gitSshKey: '<base64-encoded-private-key>' 
 
   # For creating the gitsync secret 
 
