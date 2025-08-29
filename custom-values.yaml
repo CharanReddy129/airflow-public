@@ -216,16 +216,20 @@ dags:
   # for private repo
   gitSync:
     enabled: true
-    repo: "https://github.com/CharanReddy129/airflow-private.git"
+    repo: "git@github.com:CharanReddy129/airflow-private.git"
     branch: "main"
     subPath: "airflow-dag"
     wait: 60
     depth: 1
-    credentialsSecret: "airflow-gitsync-secret"
-    # sshKeySecret: "airflow-gitsync-ssh"
+    sshKeySecret: "airflow-gitsync-ssh"
+    # credentialsSecret: "airflow-gitsync-secret"
     # KnownHosts: true
     # sshKnownHostsConfigMapName: git-known-hosts
- 
+
+extraSecrets:
+  airflow-gitsync-ssh:
+    data: '<base64-encoded-private-key>' 
+
   # For creating the gitsync secret 
 
   # kubectl create secret generic airflow-gitsync-secret \
